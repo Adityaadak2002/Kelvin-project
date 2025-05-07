@@ -1,65 +1,103 @@
-import React from 'react'
-import { ArrowRight } from 'lucide-react'
+import React, { useState } from 'react';
+import { auth, googleProvider, facebookProvider } from '../Firebase/firebase'; // Firebase Config Import
+import { signInWithGoogle, signInWithFacebook } from '../Firebase/auth'; // Importing signIn functions
+import { ArrowRight } from 'lucide-react';
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async () => {
+    setError('');
+    setLoading(true);
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      console.log('User  logged in successfully!');
+      window.location.href = './'; // Redirect to dashboard or any other page
+    } catch (error) {
+      console.error('Error signing in:', error.message);
+      setError('Failed to sign in. Please check your credentials.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle(); // Call the signInWithGoogle function
+      alert('Signed in with Google!');
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleFacebookSignIn = async () => {
+    try {
+      await signInWithFacebook(); // Call the signInWithFacebook function
+      alert('Signed in with Facebook!');
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
     <section>
       <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
         <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
-
           <h2 className="text-center text-2xl font-bold leading-tight text-purple-700">
-            Login in to your account
+            Login to your account
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600 ">
             Don&apos;t have an account?{' '}
             <a
-              href="#"
-              title=""
+              href="/signup"
               className="font-semibold text-black transition-all duration-200 hover:underline"
             >
-              Sing us
+              Sign up
             </a>
           </p>
-          <form action="#" method="POST" className="mt-8">
+          <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }} className="mt-8">
             <div className="space-y-5">
               <div>
-                <label htmlFor="" className="text-base font-medium text-gray-900">
-                  {' '}
-                  Email address{' '}
-                </label>
+                <label className="text-base font-medium text-gray-900">Email address</label>
                 <div className="mt-2">
                   <input
-                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
                     type="email"
                     placeholder="Email"
-                  ></input>
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
                 </div>
               </div>
               <div>
                 <div className="flex items-center justify-between">
-                  <label htmlFor="" className="text-base font-medium text-gray-900">
-                    {' '}
-                    Password{' '}
-                  </label>
-                  <a href="#" title="" className="text-sm font-semibold text-black hover:underline">
-                    {' '}
-                    Forgot password?{' '}
-                  </a>
+                  <label className="text-base font-medium text-gray-900">Password</label>
+                  <a href="#" className="text-sm font-semibold text-black hover:underline">Forgot password?</a>
                 </div>
                 <div className="mt-2">
                   <input
-                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1"
                     type="password"
                     placeholder="Password"
-                  ></input>
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
                 </div>
               </div>
+              {error && <p className="text-red-500">{error}</p>}
               <div>
                 <button
                   type="button"
-                  className="inline-flex w-full items-center justify-center rounded-md bg-purple-700 px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-purple-900"
+                  className="inline-flex w-full items-center justify-center rounded-md bg-purple-700 px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-purple- 900"
+                  onClick={handleLogin}
+                  disabled={loading}
                 >
-                  Get started <ArrowRight className="ml-2" size={16} />
+                  {loading ? 'Logging in...' : 'Get started'} <ArrowRight className="ml-2" size={16} />
                 </button>
               </div>
             </div>
@@ -68,6 +106,7 @@ export default function Login() {
             <button
               type="button"
               className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
+              onClick={handleGoogleSignIn}
             >
               <span className="mr-2 inline-block">
                 <svg
@@ -84,6 +123,7 @@ export default function Login() {
             <button
               type="button"
               className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
+              onClick={handleFacebookSignIn}
             >
               <span className="mr-2 inline-block">
                 <svg
@@ -101,5 +141,5 @@ export default function Login() {
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -19,10 +19,6 @@ const quickLinks = [
     path: "/cars",
     display: "Car Listing",
   },
-  {
-    path: "/blogs",
-    display: "Blog",
-  },
 
   {
     path: "/contact",
@@ -43,7 +39,7 @@ const Footer = () => {
                 <Link to="/home" className=" d-flex align-items-center gap-2">
                   <i class="ri-car-line"></i>
                   <span>
-                    Kelvin  <br />Rent Service
+                    APAAR <br /> LOGISTICS
                   </span>
                 </Link>
               </h1>
@@ -73,17 +69,15 @@ const Footer = () => {
             <div className="mb-4">
               <h5 className="footer__link-title mb-4">Head Office</h5>
               <p className="office__info">Devas naka, Madhypradesh, India</p>
-              <p className="office__info">Phone: +919893699000</p>
+              <p className="office__info">Phone: +91-7314222223</p>
 
-              <p className="office__info">Email: Kelvin@gmail.com</p>
-
-              <p className="office__info">Office Time: 10am - 5pm</p>
+              <p className="office__info">Email: info@apaarlogistics.com</p>
             </div>
           </Col>
 
           <Col lg="3" md="4" sm="12">
             <div className="mb-4">
-              <h5 className="footer__link-title">Newsletter</h5>
+              <h5 className="footer__link-title">Social media</h5>
               <p className="section__description">Subscribe our newsletter</p>
               <div className="newsletter">
                 <input type="email" placeholder="Email" />

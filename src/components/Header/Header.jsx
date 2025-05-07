@@ -16,7 +16,7 @@ const navLinks = [
   },
   {
     path: "/cars",
-    display: "Cars",
+    display: "Vehical",
   },
 
   {
@@ -44,7 +44,10 @@ const Header = () => {
               <div className="header__top__left">
                 <span>Need Help?</span>
                 <span className="header__top__help">
-                  <i class="ri-phone-fill"></i> +91-998820029 
+                  <i class="ri-phone-fill"></i> +91-7314222223 
+                </span>
+                <span className="header__top__help">
+                  <i class="ri-mail-fill"></i> info@apaarlogistics.com
                 </span>
               </div>
             </Col>
@@ -56,7 +59,7 @@ const Header = () => {
                 </Link>
 
                 <Link to="./Singus" className=" d-flex align-items-center gap-1">
-                  <i class="ri-user-line"></i> Sing us
+                  <i class="ri-user-line"></i> Sign Up
                 </Link>
               </div>
             </Col>
@@ -74,7 +77,7 @@ const Header = () => {
                   <Link to="/home" className=" d-flex align-items-center gap-2">
                     <i class="ri-car-line carlogo" ></i>
                     <span>
-                      Kelvin<br/>We care
+                      APAAR<br/>LOGISTICS
                     </span>
                   </Link>
                 </h1>
@@ -88,7 +91,7 @@ const Header = () => {
                 </span>
                 <div className="header__location-content">
                   <h4>India</h4>
-                  <h6>Indore, Madhay pradesh</h6>
+                  <h6>Indore, Madhya pradesh</h6>
                 </div>
               </div>
             </Col>
@@ -112,8 +115,8 @@ const Header = () => {
               className=" d-flex align-items-center justify-content-end "
             >
               <button className="header__btn btn ">
-                <Link to="/contact">
-                  <i class="ri-phone-line"></i> Request a call
+                <Link to="https://wa.me/+917314222223" target="_blank">
+                  <i class="ri-whatsapp-fill" ></i>Chat on Whatsapp
                 </Link>
               </button>
             </Col>
